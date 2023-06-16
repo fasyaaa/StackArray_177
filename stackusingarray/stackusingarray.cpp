@@ -1,20 +1,94 @@
-// stackusingarray.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+class StackArray {
+private : 
+	int stack_array[5];
+	int top;
+
+public : 
+	//constructor
+	StackArray() {
+		top = -1;
+	}
+
+	int push(int element) {
+		if (top == 4) {	//step 1
+			cout << "Number of data exceeds the limit." << endl;
+			return 0;
+		}
+
+
+		top++;
+		stack_array[top] = element;		//step 3
+		cout << endl;
+		cout << element << " Ditambahkan(Pushed)" << endl;
+
+		return element;
+	}
+
+	void pop() {
+		if (empty()) {		//step 1
+			cout << "\nStack is empty. Cannot pop." << endl; //1.a
+			return; //1.b
+		}
+
+		cout << "\nThe popped element is : " << stack_array[top] << endl; //step 2
+		top--; //step 3 decrement
+	}
+
+	//methode for check if data is empty
+	bool empty() {
+		return (top == -1);
+	}
+
+	void display() {
+		if (empty()) {
+			cout << "\nStack is empty." << endl;
+		}
+		else {
+			for (int tmp = 0; tmp >= top; tmp++) {
+				cout << stack_array[tmp] << endl;
+			}
+		}
+	}
+};
+
+int main() {
+	StackArray s;
+	char ch;
+	while (true) {
+		cout << endl;
+		cout << "\n****Stack Menu****\n";
+		cout << "1. Push\n";
+		cout << "2. Pop\n";
+		cout << "3. Display\n";
+		cout << "4. Exit\n";
+		cout << "\nEnter  your choice : ";
+		cin >> ch;
+		switch (ch) {
+		case '1': {
+			cout << "\nEnter an Element : ";
+			int element;
+			cin >> element;
+			s.push(element);
+			break;
+		}
+		case '2': 
+			if (s.empty()) {
+				cout << "\nStack is empty." << endl;
+				break;
+			}
+			s.pop();
+			break;
+		case '3':
+			s.display();
+			break;
+		case '4':
+			return 0;
+		default :
+			cout << "\nInvalid choice " << endl;
+			break;
+		}
+	}
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
